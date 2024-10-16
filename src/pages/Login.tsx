@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [success, setSuccess] = useState(false);
+	const navigate = useNavigate();
 
 	const handleLogin = async (event: React.FormEvent) => {
 		event.preventDefault();
@@ -20,7 +22,7 @@ const Login = () => {
 			if (res.ok) {
 				const data = await res.json();
 				document.cookie = `authToken=${data.token}; path=/;`;
-				setSuccess(true);
+				navigate('/play');
 			} else {
 				console.error('Login failed');
 			}
